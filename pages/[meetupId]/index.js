@@ -2,10 +2,36 @@
 import { MongoClient, ObjectId } from "mongodb";
 import Head from "next/head";
 import MeetupDetail from "../../components/meetups/MeetupDetails";
+import { useRouter } from "next/router";
+import { useLoadingContext } from "../../store/loading-context";
+import { useEffect } from "react";
+import Loading from "../../components/ui/Loading";
 
 export default function DetailPage(props) {
+  const router = useRouter();
+  const { handleStart, handleComplete, isLoading } = useLoadingContext();
+
+  useEffect(() => {
+    router.events.on("routeChangeStart", (url) => handleStart(url, router));
+    router.events.on("routeChangeComplete", (url) =>
+      handleComplete(url, router)
+    );
+    router.events.on("routeChangeError", (url) => handleComplete(url, router));
+
+    return () => {
+      router.events.off("routeChangeStart", (url) => handleStart(url, router));
+      router.events.off("routeChangeComplete", (url) =>
+        handleComplete(url, router)
+      );
+      router.events.off("routeChangeError", (url) =>
+        handleComplete(url, router)
+      );
+    };
+  }, []);
+
   return (
     <>
+      {isLoading && <Loading />}
       <Head>
         <title>{props.meetupData.title}</title>
         <meta name="description" content={props.meetupData.description} />
@@ -22,7 +48,7 @@ export default function DetailPage(props) {
 
 export async function getStaticPaths() {
   const client = await MongoClient.connect(
-    "mongodb+srv://Rockingfid1:Diamondstar1958.@cluster0.kawhv.mongodb.net/meetups?retryWrites=true&w=majority&appName=Cluster0"
+    process.env.NEXT_PUBLIC_MONGO_DB_CONNECT
   );
 
   const db = client.db();
@@ -41,11 +67,11 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context) {
-  const meetupId = context.params.meetupId;
+export async function getStaticProps({ params }) {
+  const meetupId = params.meetupId;
 
   const client = await MongoClient.connect(
-    "mongodb+srv://Rockingfid1:Diamondstar1958.@cluster0.kawhv.mongodb.net/meetups?retryWrites=true&w=majority&appName=Cluster0"
+    process.env.NEXT_PUBLIC_MONGO_DB_CONNECT
   );
 
   const db = client.db();
@@ -53,7 +79,7 @@ export async function getStaticProps(context) {
   const meetupsCollection = db.collection("meetups");
 
   const selectedMeetup = await meetupsCollection.findOne({
-    _id: new ObjectId(meetupId),
+    _id: ObjectId.createFromHexString(meetupId),
   });
 
   client.close();

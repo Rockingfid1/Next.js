@@ -38,6 +38,38 @@
   font-weight: bold;
 }
 
+.disabled {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.disabled button {
+  font: inherit;
+  cursor: pointer;
+  background-color: #a39d9f;
+  color: #7c7878;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #a39d9f;
+  border-radius: 4px;
+  font-weight: bold;
+  animation: button-flicker 0.9s ease-out forwards;
+  animation-iteration-count: infinite;
+}
+
+@keyframes button-flicker {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .actions button:hover,
 .actions button:active {
   background-color: #a50e48;
