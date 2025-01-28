@@ -35,16 +35,16 @@ function NewMeetupForm(props) {
       description: enteredDescription,
     };
 
-    const { title, image, address, description } = meetupData;
+    // const { title, image, address, description } = meetupData;
 
-    if (
-      title.trim() === "" ||
-      !image.trim().startsWith("https") ||
-      address.trim() === "" ||
-      description.trim() === ""
-    ) {
-      return;
-    }
+    // if (
+    //   title.trim() === "" ||
+    //   !image.trim().startsWith("https") ||
+    //   address.trim() === "" ||
+    //   description.trim() === ""
+    // ) {
+    //   return;
+    // }
     await props.onAddMeetup(meetupData);
   }
 
