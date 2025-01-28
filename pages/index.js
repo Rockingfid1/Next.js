@@ -13,7 +13,9 @@ export default function HomePage(props) {
 
   useEffect(() => {
     if (shouldReload) {
-      router.reload();
+      setTimeout(() => {
+        router.reload();
+      }, 2000);
     }
 
     return () => handleReload(false);
