@@ -1,4 +1,3 @@
-//domain.com/[meetupId]
 import { MongoClient, ObjectId } from "mongodb";
 import Head from "next/head";
 import MeetupDetail from "../../components/meetups/MeetupDetails";
