@@ -15,7 +15,7 @@ export default function HomePage(props) {
     if (shouldReload) {
       setTimeout(() => {
         router.reload();
-      }, 2000);
+      }, 500);
     }
 
     return () => handleReload(false);
