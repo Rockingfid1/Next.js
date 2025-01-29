@@ -57,7 +57,7 @@ export default function HomePage(props) {
 export async function getStaticProps() {
   // fetch data from an API
   const client = await MongoClient.connect(
-    process.env.NEXT_PUBLIC_MONGO_DB_CONNECT
+    "mongodb+srv://Rockingfid1:Diamondstar1958.@cluster0.kawhv.mongodb.net/meetups?retryWrites=true&w=majority&appName=Cluster0"
   );
 
   const db = client.db();

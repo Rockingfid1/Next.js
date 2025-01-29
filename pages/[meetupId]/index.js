@@ -47,7 +47,7 @@ export default function DetailPage(props) {
 
 export async function getStaticPaths() {
   const client = await MongoClient.connect(
-    process.env.NEXT_PUBLIC_MONGO_DB_CONNECT
+    "mongodb+srv://Rockingfid1:Diamondstar1958.@cluster0.kawhv.mongodb.net/meetups?retryWrites=true&w=majority&appName=Cluster0"
   );
 
   const db = client.db();
@@ -70,7 +70,7 @@ export async function getStaticProps({ params }) {
   const meetupId = params.meetupId;
 
   const client = await MongoClient.connect(
-    process.env.NEXT_PUBLIC_MONGO_DB_CONNECT
+    "mongodb+srv://Rockingfid1:Diamondstar1958.@cluster0.kawhv.mongodb.net/meetups?retryWrites=true&w=majority&appName=Cluster0"
   );
 
   const db = client.db();
